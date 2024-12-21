@@ -4,13 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+import java.util.Map;
 
 public class PokedexGUI {
 
     public PokedexGUI() {
         // Janela Principal
         JFrame frame = new JFrame("Pokedex");
-        frame.setSize(400,300);
+        frame.setSize(400,400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Painel
@@ -48,19 +50,34 @@ public class PokedexGUI {
 
         // Label for Image
         JLabel imageLabel = new JLabel();
-        imageLabel.setBounds(100, 150, 200, 100);
+        imageLabel.setBounds(110, 150, 200, 200);
         panel.add(imageLabel);
 
 
-        //Search Button function
+        // Search Button function
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String pokemonName = userText.getText();
                 PokedexApi pokemonApi = new PokedexApi(pokemonName);
-                pokemonApi.getPokemonInfoNameNumberType(resultLabel, imageLabel);
-            }
+                Map<String, String> pokemonData = pokemonApi.getPokemonInfo();
 
+                if (pokemonData.isEmpty()) {
+                    resultLabel.setText("Error fetching data");
+                } else {
+                    resultLabel.setText("Pokemon: " + pokemonData.get("name") + ", Dex Number: " + pokemonData.get("dexNumber") + ", Type: " + pokemonData.get("primaryType"));
+                    try {
+                        ImageIcon imageIcon = new ImageIcon(new URL(pokemonData.get("imageUrl")));
+                        Image image = imageIcon.getImage();
+                        Image resizedImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+                        imageIcon = new ImageIcon(resizedImage);
+                        imageLabel.setIcon(imageIcon);
+                    } catch (Exception ex) {
+                        resultLabel.setText("Error loading image");
+                        ex.printStackTrace();
+                    }
+                }
+            }
         });
     }
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokedex</title>
+</head>
+<body>
+<h1>Welcome to the Pokedex</h1>
+<form action="/search" method="get">
+  <label for="pokemonName">Enter Pokemon Name:</label>
+  <input type="text" id="pokemonName" name="pokemonName">
+  <button type="submit">Search</button>
+</form>
+<div id="result">
+  <h2>Pokemon Info</h2>
+  <p>Name: ${pokemonData.name}</p>
+  <p>Dex Number: ${pokemonData.dexNumber}</p>
+  <p>Type: ${pokemonData.primaryType}</p>
+  <img src="${pokemonData.imageUrl}" alt="Pokemon Image">
+</div>
+</body>
+</html>
