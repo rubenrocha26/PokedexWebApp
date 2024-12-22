@@ -23,6 +23,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation ("org.json:json:20210307")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:3.4.1")
 }
 
 tasks.withType<Test> {
