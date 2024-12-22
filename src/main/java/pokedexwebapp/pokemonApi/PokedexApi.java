@@ -8,6 +8,7 @@ public class PokedexApi {
     private String _name;
     private int _dexNumber;
     private String _primaryType;
+    private String _secondaryType;
     private String _imageUrl;
     
 
@@ -23,6 +24,14 @@ public class PokedexApi {
         _name = json.getString("name").toLowerCase();
         _dexNumber = json.getInt("id");
         _primaryType = json.getJSONArray("types").getJSONObject(0).getJSONObject("type").getString("name");
+
+        //Shows secondary type
+        if (json.getJSONArray("types").length() > 1) {
+            _secondaryType = json.getJSONArray("types").getJSONObject(1).getJSONObject("type").getString("name");
+        } else {
+            _secondaryType = null;
+        }
+
         _imageUrl = json.getJSONObject("sprites").getString("front_default");
     }
 
@@ -36,6 +45,10 @@ public class PokedexApi {
 
     public String getPrimaryType(){
         return _primaryType;
+    }
+
+    public String getSecondaryType(){
+        return _secondaryType;
     }
 
     public String getImageUrl(){

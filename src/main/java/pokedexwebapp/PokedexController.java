@@ -20,12 +20,18 @@ public class PokedexController {
 
     @PostMapping("/pokemonSearch")
     public String searchPokemon(HttpServletRequest request, Model model) {
+        //Get pokemonName from WebSite
         String pokemonName = request.getParameter("pokemonName");
         PokedexApiService pokedexApiService = new PokedexApiService();
         PokedexApi pokemonApi = new PokedexApi(pokemonName, pokedexApiService);
         model.addAttribute("name", pokemonApi.getName());
         model.addAttribute("dexNumber", pokemonApi.getDexNumber());
         model.addAttribute("primaryType", pokemonApi.getPrimaryType());
+
+        if (pokemonApi.getSecondaryType() != null && !pokemonApi.getSecondaryType().isEmpty()) {
+            model.addAttribute("secondaryType", pokemonApi.getSecondaryType());
+        }
+
         model.addAttribute("imageUrl", pokemonApi.getImageUrl());
         return "pokedexWebPage";
     }
