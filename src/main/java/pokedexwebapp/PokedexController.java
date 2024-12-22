@@ -15,9 +15,6 @@ public class PokedexController {
     
     @GetMapping("")
     public String home() {
-        /*PokedexApi pokemonApi = new PokedexApi(pokemonName);
-        Map<String, String> pokemonData = pokemonApi.getPokemonInfo();
-        model.addAttribute("pokemonData", pokemonData);*/
         return "pokedexWebPage";
     }
 
