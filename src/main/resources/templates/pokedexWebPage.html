@@ -7,17 +7,17 @@
 </head>
 <body>
 <h1>Welcome to the Pokedex</h1>
-<form action="" method="GET">
+<form action="/pokemonSearch" method="POST">
   <label for="pokemonName">Enter Pokemon Name:</label>
   <input type="text" id="pokemonName" name="pokemonName">
   <button type="submit">Search</button>
 </form>
 <div id="result">
   <h2>Pokemon Info</h2>
-  <p>Name: ${pokemonData.name}</p>
-  <p>Dex Number: ${pokemonData.dexNumber}</p>
-  <p>Type: ${pokemonData.primaryType}</p>
-  <img src="${pokemonData.imageUrl}" alt="Pokemon Image">
+  <p>Name: <span th:text="${name}"></span></p>
+  <p>Dex Number: <span th:text="${dexNumber}"></span></p>
+  <p>Type: <span th:text="${primaryType}"></span></p>
+  <img th:src="${imageUrl}" alt="Pokemon Image">
 </div>
 </body>
 </html>

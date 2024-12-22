@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class PokedexGUI {
 
-    public PokedexGUI() {
+    /*public PokedexGUI() {
         // Janela Principal
         JFrame frame = new JFrame("Pokedex");
         frame.setSize(400,400);
@@ -84,7 +84,7 @@ public class PokedexGUI {
     public static void main(String[] args) {
         //Iniciar a Gui Pokedex
         new PokedexGUI();
-    }
+    }*/
 
 
 }
