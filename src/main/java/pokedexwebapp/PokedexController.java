@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import pokedexwebapp.pokemonApi.PokedexApi;
 import pokedexwebapp.pokemonApi.PokedexApiService;
+import pokedexwebapp.pokemonInfo.PokemonName;
 
 
 @Controller
