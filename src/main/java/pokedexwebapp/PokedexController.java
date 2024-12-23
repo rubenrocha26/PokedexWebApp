@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import pokedexwebapp.pokemonApi.PokedexApi;
 import pokedexwebapp.pokemonApi.PokedexApiService;
+import pokedexwebapp.pokemonApi.PokedexJsonParser;
 import pokedexwebapp.pokemonInfo.PokemonName;
 
 
@@ -31,16 +32,17 @@ public class PokedexController {
         }
 
         PokedexApiService pokedexApiService = new PokedexApiService();
-        PokedexApi pokemonApi = new PokedexApi(pokemonName, pokedexApiService);
-        model.addAttribute("name", pokemonApi.getName());
-        model.addAttribute("dexNumber", pokemonApi.getDexNumber());
-        model.addAttribute("primaryType", pokemonApi.getPrimaryType());
+        PokedexJsonParser pokedexJsonParser = new PokedexJsonParser();
+        PokedexApi pokemonApi = new PokedexApi(pokemonName, pokedexApiService, pokedexJsonParser);
+        model.addAttribute("name", pokedexJsonParser.getName());
+        model.addAttribute("dexNumber", pokedexJsonParser.getDexNumber());
+        model.addAttribute("primaryType", pokedexJsonParser.getPrimaryType());
 
-        if (pokemonApi.getSecondaryType() != null && !pokemonApi.getSecondaryType().isEmpty()) {
-            model.addAttribute("secondaryType", pokemonApi.getSecondaryType());
+        if (pokedexJsonParser.getSecondaryType() != null && !pokedexJsonParser.getSecondaryType().isEmpty()) {
+            model.addAttribute("secondaryType", pokedexJsonParser.getSecondaryType());
         }
 
-        model.addAttribute("imageUrl", pokemonApi.getImageUrl());
+        model.addAttribute("imageUrl", pokedexJsonParser.getImageUrl());
         return "pokedexWebPage";
     }
 
