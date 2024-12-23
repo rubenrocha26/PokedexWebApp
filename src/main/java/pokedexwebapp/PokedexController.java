@@ -22,6 +22,13 @@ public class PokedexController {
     public String searchPokemon(HttpServletRequest request, Model model) {
         //Get pokemonName from WebSite
         String pokemonName = request.getParameter("pokemonName");
+
+        //Prevents null or empty name
+        if (isPokemonNameNullOrEmpty(request)) {
+            model.addAttribute("error", "Pokemon name cannot be empty.");
+            return "pokedexWebPage";
+        }
+
         PokedexApiService pokedexApiService = new PokedexApiService();
         PokedexApi pokemonApi = new PokedexApi(pokemonName, pokedexApiService);
         model.addAttribute("name", pokemonApi.getName());
@@ -34,6 +41,11 @@ public class PokedexController {
 
         model.addAttribute("imageUrl", pokemonApi.getImageUrl());
         return "pokedexWebPage";
+    }
+
+    private boolean isPokemonNameNullOrEmpty(HttpServletRequest request){
+        String pokemonName = request.getParameter("pokemonName");
+        return pokemonName == null || pokemonName.trim().isEmpty();
     }
 
 }
