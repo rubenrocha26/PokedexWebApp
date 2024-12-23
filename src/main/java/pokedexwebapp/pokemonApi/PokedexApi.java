@@ -26,7 +26,7 @@ public class PokedexApi {
         _primaryType = json.getJSONArray("types").getJSONObject(0).getJSONObject("type").getString("name");
 
         //Shows secondary type
-        if (json.getJSONArray("types").length() > 1) {
+        if (hasPokemonTwoTypes(jsonResponse)){
             _secondaryType = json.getJSONArray("types").getJSONObject(1).getJSONObject("type").getString("name");
         } else {
             _secondaryType = null;
@@ -53,5 +53,10 @@ public class PokedexApi {
 
     public String getImageUrl(){
         return _imageUrl;
+    }
+
+    private boolean hasPokemonTwoTypes(String jsonResponse){
+        JSONObject json = new JSONObject(jsonResponse);
+        return json.getJSONArray("types").length() > 1;
     }
 }
