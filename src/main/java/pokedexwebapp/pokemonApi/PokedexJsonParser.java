@@ -4,25 +4,27 @@ import org.json.JSONObject;
 
 public class PokedexJsonParser {
     
-    private String _pokemonData;
     private String _name;
     private int _dexNumber;
     private String _primaryType;
     private String _secondaryType;
     private String _imageUrl;
+    private String _jsonResponse;
 
-    public PokedexJsonParser(){
-
+    public PokedexJsonParser(PokedexApi pokedexApi){
+        PokedexApiService pokedexApiService = new PokedexApiService(pokedexApi);
+        _jsonResponse = pokedexApiService.getPokemonApiData();
+        getPokemonData();
     }
 
-    public void getPokemonData(String jsonResponse) {
-        JSONObject json = new JSONObject(jsonResponse);
+    public void getPokemonData() {
+        JSONObject json = new JSONObject(_jsonResponse);
         _name = json.getString("name").toLowerCase();
         _dexNumber = json.getInt("id");
         _primaryType = json.getJSONArray("types").getJSONObject(0).getJSONObject("type").getString("name");
 
         //Shows secondary type
-        if (hasPokemonTwoTypes(jsonResponse)){
+        if (hasPokemonTwoTypes(_jsonResponse)){
             _secondaryType = json.getJSONArray("types").getJSONObject(1).getJSONObject("type").getString("name");
         } else {
             _secondaryType = null;

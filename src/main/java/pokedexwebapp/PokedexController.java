@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import pokedexwebapp.pokemonApi.PokedexApi;
-import pokedexwebapp.pokemonApi.PokedexApiService;
 import pokedexwebapp.pokemonApi.PokedexJsonParser;
-import pokedexwebapp.pokemonInfo.PokemonName;
 
 
 @Controller
@@ -31,9 +29,8 @@ public class PokedexController {
             return "pokedexWebPage";
         }
 
-        PokedexApiService pokedexApiService = new PokedexApiService();
-        PokedexJsonParser pokedexJsonParser = new PokedexJsonParser();
-        PokedexApi pokemonApi = new PokedexApi(pokemonName, pokedexApiService, pokedexJsonParser);
+        PokedexApi pokedexApi = new PokedexApi(pokemonName);
+        PokedexJsonParser pokedexJsonParser = new PokedexJsonParser(pokedexApi);
         model.addAttribute("name", pokedexJsonParser.getName());
         model.addAttribute("dexNumber", pokedexJsonParser.getDexNumber());
         model.addAttribute("primaryType", pokedexJsonParser.getPrimaryType());

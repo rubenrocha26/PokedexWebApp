@@ -6,11 +6,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class PokedexApiService {
+
+    private String _url;
+
+    public PokedexApiService(PokedexApi pokedexApi) {
+        _url = pokedexApi.getUrl();
+    }
     
-    public String getPokemonApiData(String url) {
+    public String getPokemonApiData() {
         try {
             @SuppressWarnings("deprecation")
-            URL urlObj = new URL(url);
+            URL urlObj = new URL(_url);
             HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
             conn.setRequestMethod("GET");
     
